@@ -1,0 +1,31 @@
+{% extends "base1.html" %}
+
+{% block content %}
+<form role="form">
+  <div class="form-group">
+    <label for="id_name">Name</label>
+    <div class="col-md-7">
+      <input class="form-control input-lg" id="id_name" maxlength="30" name="name" type="text" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_address">Address:</label>
+    <div class="col-md-7">
+      <input class="form-control input-lg" id="id_address" maxlength="100" name="address" type="text" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_date">Date:</label>
+    <div class="col-md-2">
+      <input class="form-control" id="id_date" name="date" type="date" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="id_pic_before">Current Pic (garbage):</label>
+    <input id="id_pic_before" name="pic_before" type="file" />
+    <input id="id_lat" name="lat" type="hidden" />
+    <input id="id_lng" name="lng" type="hidden" />
+  </div>
+</form>
+{% endblock %}
+

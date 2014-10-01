@@ -1,0 +1,7 @@
+Hi, 
+
+Thanks for registering. 
+
+Here is your activation link http://{{site}}/accounts/activate/{{activation_key}}, the link will expire in {{expiration_days}} days.
+
+Thanks :-)
