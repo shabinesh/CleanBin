@@ -48,6 +48,7 @@
     color: rgb(255, 255, 255);
 }
 </style>
+{% block mapscript %}{% endblock %}
   </head>
 
   <body>
@@ -86,7 +87,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="height:100%;width:100%">
       <p></p>
       {% block content %}{% endblock %}
       <div class="starter-template">
