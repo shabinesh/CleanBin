@@ -97,3 +97,8 @@ TEMPLATE_DIRS = (
     BASE_DIR + "/templates/",
     BASE_DIR + "/cleanbin/templates/"
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/uploads')
+MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL="/"

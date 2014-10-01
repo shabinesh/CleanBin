@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 # Create your models here.
 
 CANCELLED = 'cancelled'
@@ -15,6 +16,8 @@ STATE = (
 class Event(models.Model):
     name         = models.CharField(max_length = 30)
     user         = models.ForeignKey(User)
+    slug         = models.SlugField(max_length = 50)
+    desc         = models.TextField()
     address      = models.CharField(max_length = 100)
     lat          = models.FloatField()
     lng          = models.FloatField()
@@ -22,5 +25,9 @@ class Event(models.Model):
     posted       = models.DateTimeField(auto_now = True)
     state        = models.CharField(max_length = 10, choices = STATE, default = ACTIVE)
     participants = models.ManyToManyField(User, related_name = 'events')
-    pic_before   = models.ImageField(upload_to = '/')
-    pic_after    = models.ImageField(null = True, upload_to = '/')
+    pic_before   = models.ImageField(upload_to = '%Y/%m/%d')
+    pic_after    = models.ImageField(null = True, blank=True, upload_to = '/')
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Event, self).save(*args, **kwargs)

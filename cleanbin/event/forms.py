@@ -5,9 +5,9 @@ class AddEventForm(forms.ModelForm):
     class Meta:
         model = Event
         field = ['name', 'address', 'date', 'pic_before', 'lat', 'lng']
-        exclude = ['user', 'state', 'participants', 'pic_after']
+        exclude = ['user', 'state', 'participants', 'pic_after', 'slug']
         widgets = {
             'lat': forms.HiddenInput(),
-            'lng': forms.HiddenInput()
+            'lng': forms.HiddenInput(),
         }
         

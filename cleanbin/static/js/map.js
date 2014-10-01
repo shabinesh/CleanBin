@@ -69,6 +69,9 @@ function initialize() {
     // add click event
     google.maps.event.addListener(map, 'click', function(event) {
 	// drop a marker at the click location
+	document.getElementById('id_lat').value = event.latLng.lat();
+	document.getElementById('id_lng').value = event.latLng.lng();
+	document.getElementById('id_address').value = document.getElementById('pac-input').value;
 	addMarker(event.latLng);
     });
 }
@@ -91,6 +94,7 @@ function addMarker(location) {
 	for (var i = 0; i < infowindows.length; i++) {
 	    infowindows[i].close();
 	}
+	console.log(event.latLng.lat());
 	// pop up info bar
 	marker.setTitle('Pop up');
 	var infowindow = new google.maps.InfoWindow({

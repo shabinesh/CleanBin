@@ -1,6 +1,7 @@
 {% extends "base1.html" %}
 {% load staticfiles %}
 {% block content %}
+{{form.errors}}
 <div class="row">
   <div class="col-md-6">
     <input id="pac-input" style="width:300px" class="controls" type="text" placeholder="Search Box" style="visibility:hidden;">
@@ -11,14 +12,20 @@
   </div>
 
   <div class="col-md-6">
-    <form role="form" class="form">
+    <form role="form" class="form" action="." method="post" enctype="multipart/form-data">
+      {% csrf_token %}
       <div class="form-group">
 	<label for="id_name">Title</label>
 	  <input class="form-control" id="id_name" maxlength="30" name="name" type="text" />
+	  
       </div>
       <div class="form-group">
 	<label for="id_address">Address:</label>
 	  <input class="form-control" id="id_address" maxlength="100" name="address" type="text" />
+      </div>
+      <div class="form-group">
+	<label for="id_desc">Description</label>
+	<textarea class="form-control" id="id_desc" name="desc" rows="5"></textarea>
       </div>
       <div class="form-group">
 	<label for="id_date">Date:</label>
@@ -30,6 +37,8 @@
 	<input id="id_lat" name="lat" type="hidden" />
 	<input id="id_lng" name="lng" type="hidden" />
       </div>
+      <div class="form-group">
+	<input type="submit" class="btn btn-primary btn-block btn-lg" value="I'm done">
     </form>    
   </div>
 </div>

@@ -1,0 +1,22 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+
+<h3>{{event.name | title}}</h3>
+<address>{{event.address}}</address>
+<div class="col-md-6">
+  <img src={{MEDIA_URL}}{{event.pic_before}} class="img-responsive">
+</div>
+<div class="col-md-6">
+  <a href="http://maps.google.com/maps?z=12&t=m&q=loc:{{event.lat}}+{{event.lng}}" _target="blank">go to google maps</a>
+  <p>{{event.desc}}</p>
+  <strong>on {{event.date | date}}</strong>
+  <p></p>
+  {% if request.user not in x.participants %}
+  <a href="{% url 'join' pk=x.id %}" class="btn btn-success btn-block">join</a>
+  {% else %}
+  You are joining.
+  {% endif %}
+</div>
+
+{% endblock %}

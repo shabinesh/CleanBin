@@ -13,9 +13,10 @@
 
     <!-- Bootstrap core CSS -->
     <link href={% static "css/bootstrap.css" %} rel="stylesheet">
-
+    <link href='http://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet' type='text/css'>
     <!-- Custom styles for this template -->
     <link href={% static "css/navbar.css" %} rel="stylesheet">
+    <link href={% static "css/custom.css" %} rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -63,13 +64,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="/">Ugly Indian</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><a href="{% url 'add-event' %}">Add</a></li>
+            <li><a href="mailto:shabi@fossix.org">Contact</a></li>
           </ul>
 	  {% if user.is_authenticated %}
 	  <ul class="nav navbar-nav navbar-right">
@@ -78,7 +78,7 @@
 		<i class="glyphicon glyphicon-user"></i>{{user.username}}
               </a>
               <ul class="dropdown-menu">
-		<li><a href="{% url 'profile' %}">Account</a></li>
+
 		<li><a href="{% url 'auth_logout' %}">Logout</a></li>
 	      </ul>
 	    </li>
