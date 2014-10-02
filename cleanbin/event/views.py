@@ -26,13 +26,28 @@ class EventList(ListView):
     model = Event
     context_object_name = "events"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(EventList, self).get_context_data(*args, **kwargs)
+        context['user_events'] = [e.id for e in self.request.user.events.all()]
+        return context
+
 class EventDetail(DetailView):
     model = Event
     context_object_name = 'event'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(EventDetail, self).get_context_data(*args, **kwargs)
+        user_events = [e.id for e in self.request.user.events.all()]
+        if context['event'].id in user_events:
+            context['participating'] = True
+        else:
+            context['participating'] = False
+        return context
+
 class JoinView(View):
     def get(self, request, *args, **kwargs):
-        obj = get_object_or_404(Event, pk=self.kwargs.get('pk'))
-        obj.participants.add(request.user)
+        self.event = get_object_or_404(Event, pk=kwargs.get('pk'))
+        self.event.participants.add(request.user)
         messages.add_message(request, messages.INFO, "You are added as a participant")
         return redirect(reverse('list-event'))
+

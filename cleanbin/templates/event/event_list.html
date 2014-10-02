@@ -6,20 +6,25 @@
 <div class="col-md-4 thumbnail">
   <a href={% url 'event-detail' slug=x.slug %}><img class="img-responsive" src="{{MEDIA_URL}}{{x.pic_before}}"></a>
   <div class="row">
-    <div class="col-md-3">
-      <h4>{{x.name}}</h4>
-    </div>
-    <div class="col-xs-1">
-      {% if request.user not in x.participants %}
-      <a href="{% url 'join' pk=x.id %}" class="btn btn-success btn-xs">join</a>
-      {% endif %}
-    </div>
-    <div class="col-xs-2">
-      <p>{{x.participants.count}} joining</p>
+    <div class="col-md-4">
+      <strong>{{x.name}}</strong>
     </div>
   </div>
   <small>{{x.address}}</small>
-</div>
+  <div class="row">
+    <div class="col-md-3">
+      <p>{{x.participants.count}} joining</p>
+    </div>
+    <div class="col-md-3 pull-right">
+      {% if x.id not in user_events %}
+      <a href="{% url 'join' pk=x.id %}" class="btn btn-success btn-xs">join</a>
+      {% else %}
+      <a href="{% url 'join' pk=x.id %}" class="btn btn-success btn-xs disabled">joined</a>
+      {% endif %}
+    </div>
+  </div>
+
+  </div>
 {% endfor %}
 
 {% endblock %}

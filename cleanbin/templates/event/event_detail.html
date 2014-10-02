@@ -12,10 +12,10 @@
   <p>{{event.desc}}</p>
   <strong>on {{event.date | date}}</strong>
   <p></p>
-  {% if request.user not in x.participants %}
-  <a href="{% url 'join' pk=x.id %}" class="btn btn-success btn-block">join</a>
+  {% if participating %}
+  <a href="#" class="btn btn-success btn-block disabled">You are joining.</a>
   {% else %}
-  You are joining.
+  <a href="{% url 'join' pk=event.id %}" class="btn btn-success btn-block">join</a>
   {% endif %}
 </div>
 
