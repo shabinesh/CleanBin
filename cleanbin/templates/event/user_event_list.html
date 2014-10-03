@@ -1,0 +1,24 @@
+{% extends "base1.html" %}
+
+{% block content %}
+<h4> Fixs you are participating </h4>
+<div class="list-group">
+  {% for x in events %}
+  <a href="#" class="list-group-item clearfix">
+    <h4 class="list-group-item-heading">{{x.name}}</h4>
+    <p class="list-group-item-text">{{x.address}}</p>
+    <p class="list-group-item-text">
+      {{x.desc}}
+    </p>
+    <span class="pull-right">
+     <button class="btn btn-warning btn-xs" onclick="location.href='{% url 'unjoin' pk=x.id %}'">unjoin</button>
+     {% if x.user.pk == user.pk %}
+     <button class="btn btn-info btn-xs" onclick="location.href='{% url 'edit-event' slug=x.slug %}'">
+       <span class="glyphicon glyphicon-pencil"></span>
+     </button>
+     {% endif %}
+    </span>
+  </a>
+{% endfor %}
+</div>
+{% endblock %}

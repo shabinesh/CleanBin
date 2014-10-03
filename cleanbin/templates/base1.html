@@ -68,8 +68,8 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'add-event' %}">Add</a></li>
-            <li><a href="mailto:shabi@fossix.org">Contact</a></li>
+            <li class="active"><a href="{% url 'add-event' %}"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add</a></li>
+            <li><a href="mailto:shabi@fossix.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Contact</a></li>
           </ul>
 	  {% if user.is_authenticated %}
 	  <ul class="nav navbar-nav navbar-right">
@@ -78,17 +78,35 @@
 		<i class="glyphicon glyphicon-user"></i>{{user.username}}
               </a>
               <ul class="dropdown-menu">
-
+		<li><a href="{% url 'my-events' %}">My Events</a></li>
 		<li><a href="{% url 'auth_logout' %}">Logout</a></li>
 	      </ul>
 	    </li>
 	  </ul>
+	  {% else %}
+	  <ul class="nav navbar-nav pull-right">
+            <li class="active"><a href="{% url 'auth_login' %}"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Login</a></li>
+            <li><a href="{% url 'registration_register' %}"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Sign up</a></li>
+          </ul>
 	  {% endif %}
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
-    <div class="container" style="height:100%;width:100%">
+    <div class="container">
+      
+      <p></p>
+      {% if messages %}
+      <ul class="messages">
+	{% for message in messages %}
+	<div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible"{% endif %}>
+	  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	  {{ message }}
+	</div>
+	{% endfor %}
+      </ul>
+      {% endif %}
+      
       <p></p>
       {% block content %}{% endblock %}
       <div class="starter-template">
