@@ -12,36 +12,42 @@
   </div>
 
   <div class="col-md-6">
-    <form role="form" class="form" action="." method="post" enctype="multipart/form-data">
+    <form role="form" class="form" action="{{action}}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-group">
 	<label for="id_name">Title</label>
-	  <input class="form-control" id="id_name" maxlength="30" name="name" type="text" />
-	  
+	  <input class="form-control" id="id_name" maxlength="30" name="name" type="text" value="{{ form.name.value|default_if_none:''}}"/>
       </div>
       <div class="form-group">
 	<label for="id_address">Address:</label>
-	  <input class="form-control" id="id_address" maxlength="100" name="address" type="text" />
+	  <input class="form-control" id="id_address" maxlength="100" name="address" type="text" value = "{{ form.address.value|default_if_none:'' }}"/>
       </div>
       <div class="form-group">
 	<label for="id_desc">Description</label>
-	<textarea class="form-control" id="id_desc" name="desc" rows="5"></textarea>
+	<textarea class="form-control" id="id_desc" name="desc" rows="5">{{form.desc.value|default_if_none:''}}</textarea>
       </div>
       <div class="form-group">
 	<label for="id_date">Date:</label>
-	  <input class="form-control" id="id_date" name="date" type="date" />
+	  <input class="form-control" id="id_date" name="date" type="date" value="{{form.date.value|date:'d/m/Y'|default_if_none:''}}"/>
       </div>
       <div class="form-group">
-	<label for="id_pic_before">Current Pic (garbage):</label>
-	<input id="id_pic_before" name="pic_before" type="file" />
-	<input id="id_lat" name="lat" type="hidden" />
-	<input id="id_lng" name="lng" type="hidden" />
+	<label for="id_pic_before">Picture before event</label>
+	{{form.pic_before}}
+	<input id="id_lat" name="lat" type="hidden" value="{{form.lat.value|default_if_none:''}}"/>
+	<input id="id_lng" name="lng" type="hidden" value="{{form.lat.value|default_if_none:''}}"/>
       </div>
+      {% if form.pic_after %}
+      <div class="form-group">
+	<label for="id_pic_after">Picture after event</label>
+	{{form.pic_after}}
+      </div>
+      {% endif %}
       <div class="form-group">
 	<input type="submit" class="btn btn-primary btn-block btn-lg" value="I'm done">
     </form>    
   </div>
 </div>
+  {{form.current_pic.value.url}}
 {% endblock %}
 
 {% block mapscript %}

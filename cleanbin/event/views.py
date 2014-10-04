@@ -5,9 +5,12 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.base import View
 from django.contrib import messages
+from django.http import HttpResponseNotFound
 
 from event.models import *
 from event.forms import *
+from django.utils import timezone
+
 # Create your views here.
 
 class EventCreate(CreateView):
@@ -69,4 +72,18 @@ class UserEventList(EventList):
 class EventUpdate(UpdateView):
     model = Event
     form_class = AddEventForm
-    template_name = 'event_update_form.html'
+    template_name = 'event/event_form.html'
+
+    def get(self, request, **kwargs):
+        obj = get_object_or_404(Event, slug=kwargs['slug'], user=request.user)
+        if obj.date < timezone.now():
+            self.form_class = EventDoneForm
+        return super(EventUpdate, self).get(request, **kwargs)
+
+    def form_valid(self, form):
+        messages.add_message(self.request, messages.INFO, "Updated successfully.")
+        return super(EventUpdate, self).form_valid(form)
+        
+    def get_context_data(self, *args, **kwargs):
+        context = super(EventUpdate, self).get_context_data(*args, **kwargs)
+        return context

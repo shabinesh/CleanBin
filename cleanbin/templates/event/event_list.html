@@ -15,6 +15,7 @@
     <div class="col-md-3">
       <p>{{x.participants.count}} joining</p>
     </div>
+    {% if user.is_authenticated %}
     <div class="col-md-3 pull-right">
       {% if x.id not in user_events %}
       <a href="{% url 'join' pk=x.id %}" class="btn btn-success btn-xs">join</a>
@@ -22,6 +23,7 @@
       <a href="{% url 'join' pk=x.id %}" class="btn btn-success btn-xs disabled">joined</a>
       {% endif %}
     </div>
+    {% endif %}
   </div>
 
   </div>
